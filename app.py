@@ -7,7 +7,7 @@ app = Flask(__name__)
 def check_profanity():
     data = request.get_json()
     sentence = data['sentence']
-    output = profanity.censor(item.Text)
+    output = profanity.censor(sentence)
     return output
 
 if __name__ == '__main__':
