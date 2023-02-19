@@ -12,4 +12,4 @@ def check_profanity():
     return jsonify({'censored_text': censored_text})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000)
