@@ -1,4 +1,5 @@
 from flask import Flask, request
+from joblib import load
 from profanity_filter import ProfanityFilter
 
 app = Flask(__name__)
