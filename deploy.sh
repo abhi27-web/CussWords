@@ -1,14 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Create a virtual environment and activate it
-python3 -m venv antenv
-source antenv/bin/activate
-
-# Install the required packages
+# Install dependencies
 pip install -r requirements.txt
 
-# Install Spacy data
+# Install spacy language model
 python -m spacy download en_core_web_sm
 
-# Run the application
-gunicorn app:app -b 0.0.0.0:$PORT --timeout 600
+# Build a wheel for spacy to avoid an error in Azure deployment
+pip wheel spacy -w ./wheelhouse
+
+# Deploy the app to Azure Web App
+az webapp up -n ProfanityCheck -g cusswords --sku B1 --logs
+
+# Set the startup command for the app
+az webapp config set -n ProfanityCheck -g cusswords --startup-file app.py
+
+# Restart the app to activate the changes
+az webapp restart -n ProfanityCheck -g cusswords
+
+
