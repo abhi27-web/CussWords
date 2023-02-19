@@ -1,3 +1,2 @@
 flask
-profanity-check
-emoji
+profanity-check==1.0.3
