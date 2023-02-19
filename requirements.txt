@@ -1,2 +1,2 @@
 Flask==2.1.0
-profanity_filter==2.0.7
+profanity_filter
