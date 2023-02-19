@@ -1,5 +1,5 @@
 from flask import Flask, request
-from better_profanity import profanity
+from profanity_filter import ProfanityFilter
 
 app = Flask(__name__)
 
@@ -7,7 +7,8 @@ app = Flask(__name__)
 def check_profanity():
     data = request.get_json()
     sentence = data['sentence']
-    output = profanity.censor(sentence)
+    pf = ProfanityFilter()
+    output = pf.censor(sentence)
     return output
 
 if __name__ == '__main__':
