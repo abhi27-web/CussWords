@@ -3,7 +3,7 @@ from profanity_filter import ProfanityFilter
 
 app = Flask(__name__)
 
-@app.route('/profanity', methods=['POST'])
+@app.route('/', methods=['POST'])
 def check_profanity():
     data = request.get_json()
     sentence = data['sentence']
