@@ -1,15 +1,26 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import profanity_check
-import emoji
 
 app = Flask(__name__)
 
-@app.route('/check', methods=['POST'])
+@app.route('/profanity', methods=['POST'])
 def check_profanity():
-    text = request.json['text']
-    censored_text = profanity_check.censor(text)
-    censored_text = emoji.emojize(censored_text, use_aliases=True)
-    return jsonify({'censored_text': censored_text})
+    data = request.get_json()
+    sentence = data['sentence']
+    words = sentence.split()
+
+    # Check for profanity in the sentence
+    if profanity_check.predict(words):
+        # Replace profanity with symbols
+        cleaned_sentence = ""
+        for word in words:
+            if profanity_check.predict([word]):
+                cleaned_sentence += "*" * len(word) + " "
+            else:
+                cleaned_sentence += word + " "
+        return {"cleaned_sentence": cleaned_sentence.strip()}
+    else:
+        return {"cleaned_sentence": sentence}
 
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(port=8000, debug=True)
