@@ -5,7 +5,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 @app.route('/profanity', methods=['POST'])
-def check_profanity():
+def sort():
     data = request.get_json()
     sentence = data['sentence']
 #     pf = ProfanityFilter()
