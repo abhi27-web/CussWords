@@ -1,5 +1,1 @@
-joblib
-profanity_filter
 flask
-gunicorn
-click
