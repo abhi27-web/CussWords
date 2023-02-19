@@ -2,3 +2,4 @@ profanity_filter
 flask
 gunicorn
 click
+joblib==1.1.0
